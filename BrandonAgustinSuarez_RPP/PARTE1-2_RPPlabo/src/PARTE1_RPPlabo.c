@@ -56,7 +56,7 @@ int main(void)
 		switch(opcionMenu)
 		{
 			case 1 :
-				if(estadia_agregarUna(estadias, TAMESTADIA, &idEstadia) == 0)
+				if(nexo_agregarUnaEstadia(estadias, duenios, perros, TAMESTADIA, &idEstadia, TAMDUENIO, TAMPERROS) == 0)
 				{
 					contadorEstadias++;
 				}
@@ -64,9 +64,20 @@ int main(void)
 			case 2 :
 			break;
 			case 3 :
+				if(contadorEstadias > 0)
+				{
+					if(!nexo_borrarUnaEstadia(estadias, TAMESTADIA, duenios))
+					{
+						contadorEstadias--;
+					}
+				}
 			break;
 			case 4 :
-				nexo_listarVarias(estadias,duenios, perros, TAM, TAMESTADIA, TAMPERROS, TAMDUENIO);
+				if(contadorEstadias > 0)
+				{
+					//nexo_ordenarEstadias(estadias, duenios, TAMESTADIA);
+					nexo_listarVarias(estadias,duenios, perros, TAMESTADIA, TAMPERROS, TAMDUENIO);
+				}
 			break;
 			case 5 :
 				perros_listar(perros, TAMPERROS);

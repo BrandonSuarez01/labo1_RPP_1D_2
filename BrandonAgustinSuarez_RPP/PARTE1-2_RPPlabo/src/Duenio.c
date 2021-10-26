@@ -29,5 +29,28 @@ int duenios_hardCodear(sDuenio duenios[], int tam)
 
 	return retorno;
 }
+void duenios_mostrarUno(sDuenio* duenios)
+{
+	printf("%-10d %-20s %-20d\n", (*duenios).id, (*duenios).nombre, (*duenios).telefono);
+}
+int duenios_mostrarVarios(sDuenio duenios[], int tamDuenios)
+{
+	int retorno = -1;
+	int i;
+
+	printf("\n%-10s %-20s %-20s\n\n", "ID Dueño", "Nombre del dueño", "Telefono de contacto");
+
+	for(i = 0; i < tamDuenios; i++)
+	{
+		if(duenios[i].estado == OCUPADO)
+		{
+			duenios_mostrarUno(&duenios[i]);
+			retorno = 0;
+		}
+	}
+
+
+	return retorno;
+}
 
 

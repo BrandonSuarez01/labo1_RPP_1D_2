@@ -30,7 +30,7 @@ void perros_listar(sPerro perros[], int tam)
 {
 	int i;
 
-	printf("%-10s - %-20s - %-20s - %-20s\n", "ID", "Nombre", "Raza", "Edad");
+	printf("\n%-10s - %-20s - %-20s - %-20s\n\n", "ID", "Nombre", "Raza", "Edad");
 
 	for(i = 0; i < tam; i++)
 	{

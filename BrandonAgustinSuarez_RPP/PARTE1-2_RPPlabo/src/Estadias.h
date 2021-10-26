@@ -32,7 +32,8 @@ typedef struct
 
 void estadia_inicializarEstadia(sEstadiaDiaria estadias[], int tam);
 int estadia_buscarEspacio(sEstadiaDiaria estadias[], int tam);
-int estadia_agregarUna(sEstadiaDiaria estadias[], int tam, int* id);
-int estadia_establecerEstadia(sEstadiaDiaria estadias[], int i, int id);
+//int estadia_agregarUna(sEstadiaDiaria estadias[], int tam, int* id);
+//int estadia_establecerEstadia(sEstadiaDiaria estadias[], int i, int id);
 int estadia_verificarConfirmacion(char* mensaje);
+int estadia_buscarPorId(sEstadiaDiaria estadias[], int tam, int id);
 #endif /* ESTADIAS_H_ */

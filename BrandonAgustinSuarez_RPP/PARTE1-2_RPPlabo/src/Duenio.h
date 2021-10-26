@@ -28,4 +28,6 @@ typedef struct
 }sDuenio;
 
 int duenios_hardCodear(sDuenio duenios[], int tam);
+void duenios_mostrarUno(sDuenio* duenios);
+int duenios_mostrarVarios(sDuenio duenios[], int tamDuenios);
 #endif /* DUENIO_H_ */

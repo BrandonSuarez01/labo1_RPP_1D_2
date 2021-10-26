@@ -22,7 +22,7 @@ typedef struct
 {
 	int id;
 	char nombre[TAMNOMBRE];
-	char raza [TAMNOMBRE];
+	char raza[TAMNOMBRE];
 	int edad;
 }sPerro;
 
