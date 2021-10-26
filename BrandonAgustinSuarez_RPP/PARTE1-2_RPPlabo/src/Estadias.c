@@ -33,7 +33,6 @@ int estadia_buscarEspacio(sEstadiaDiaria estadias[], int tam)
 			break;
 		}
 	}
-
 	return index;
 }
 int estadia_buscarPorId(sEstadiaDiaria estadias[], int tam, int id)

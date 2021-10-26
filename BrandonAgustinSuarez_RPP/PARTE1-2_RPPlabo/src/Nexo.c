@@ -14,10 +14,10 @@
 #include "Duenio.h"
 #include "Nexo.h"
 
-int nexo_agregarUnaEstadia(sEstadiaDiaria estadias[], sDuenio duenios[], sPerro perros[], int tam, int* id, int tamDuenios, int tamPerros)
+int nexo_agregarUnaEstadia(sEstadiaDiaria estadias[], sDuenio duenios[], sPerro perros[], int tamEstadias, int* id, int tamDuenios, int tamPerros)
 {
 	int retorno = -1;
-	int index = estadia_buscarEspacio(estadias, tam);
+	int index = estadia_buscarEspacio(estadias, tamEstadias);
 	int idIncrementada = *id;
 
 	if(index != -1)
@@ -91,46 +91,29 @@ int nexo_borrarUnaEstadia(sEstadiaDiaria estadias[], int tam, sDuenio duenios[])
 
 	return retorno;
 }
-int nexo_mostrarEstadia(sEstadiaDiaria estadias[], sDuenio duenios[], sPerro perros[], int tamEstadias, int tamDuenios, int tamPerros)
+int nexo_listarEstadia(sEstadiaDiaria estadias[], sDuenio duenios[], sPerro perros[], int tamEstadias, int tamDuenios, int tamPerros)
 {
 	int retorno = -1;
-	int i;
-	int j;
-	int k;
 
-	for(i = 0; i < tamEstadias; i++)
+	for(int i = 0; i < tamEstadias; i++)
+	{
+		for(int j = 0; j < tamDuenios; j++)
 		{
-			for(j = 0; j < tamDuenios; j++)
+			for(int k = 0; k < tamPerros; k++)
 			{
-				if(estadias[i].idDuenio == duenios[j].id && duenios[j].estado == OCUPADO)
+
+				if(estadias[i].idDuenio == duenios[j].id && estadias[i].idPerro == perros[k].id && estadias[i].estado == OCUPADO)
 				{
-					for(k = 0; k < tamPerros; k++)
-					{
-						if(estadias[i].idPerro == perros[k].id)
-						{
-							printf("%-10d - %-20s - %-20d - %-20s - %d/%d/%d\n",
-									estadias[i].id, duenios[j].nombre, duenios[j].telefono, perros[k].nombre, estadias[i].fecha.dia, estadias[i].fecha.mes, estadias[i].fecha.anio);
-							break;
-						}
-					}
+					printf("%-10d - %-20s - %-20d - %-20s - %d/%d/%d\n",
+					estadias[i].id, duenios[j].nombre, duenios[j].telefono, perros[k].nombre, estadias[i].fecha.dia, estadias[i].fecha.mes, estadias[i].fecha.anio);
+					break;
+					retorno = 0;
 				}
 			}
 		}
-	return retorno;
-}
-void nexo_listarVarias(sEstadiaDiaria estadias[],  sDuenio duenios[], sPerro perros[], int tamEstadias, int tamPerros, int tamDuenios)
-{
-	int i;
-
-	printf("%-10s - %-20s - %-20s - %-20s - %-20s\n\n", "ID Estadia", "Nombre del dueño", "Telefono de contacto", "Nombre del perro", "Fecha");
-	for(i = 0; i < tamEstadias; i++)
-	{
-		if(estadias[i].estado == OCUPADO)
-		{
-			nexo_mostrarEstadia(&estadias[i], &duenios[i], &perros[i], tamEstadias, tamPerros, tamDuenios);
-		}
-
 	}
+
+	return retorno;
 }
 int nexo_ordenarEstadias(sEstadiaDiaria estadias[], sDuenio duenios[], int tam)
 {
@@ -147,7 +130,7 @@ int nexo_ordenarEstadias(sEstadiaDiaria estadias[], sDuenio duenios[], int tam)
 
 		for(i = 0; i < nuevoLimite; i++)
 		{
-			if(estadias[i].fecha.dia < estadias[i + 1].fecha.dia && estadias[i].fecha.mes < estadias[i + 1].fecha.mes && estadias[i].fecha.anio < estadias[i + 1].fecha.anio)
+			if(estadias[i].fecha.dia < estadias[i+1].fecha.dia && estadias[i].fecha.mes < estadias[i+1].fecha.mes && estadias[i].fecha.anio < estadias[i+1].fecha.anio)
 			{
 				auxEstadia = estadias[i];
 				estadias[i] = estadias[i + 1];
@@ -156,24 +139,86 @@ int nexo_ordenarEstadias(sEstadiaDiaria estadias[], sDuenio duenios[], int tam)
 			}
 			else
 			{
-				if(estadias[i].fecha.dia == estadias[i + 1].fecha.dia && estadias[i].fecha.mes == estadias[i + 1].fecha.mes && estadias[i].fecha.anio == estadias[i + 1].fecha.anio)
+				if(estadias[i].fecha.dia == estadias[i+1].fecha.dia && estadias[i].fecha.mes == estadias[i+1].fecha.mes && estadias[i].fecha.anio == estadias[i+1].fecha.anio)
 				{
-					if(strcmp(duenios[i].nombre, duenios[i + 1].nombre) == -1)
+					if(strcmp(duenios[i].nombre, duenios[i + 1].nombre) == -1 && estadias[i].fecha.anio < estadias[i+1].fecha.anio)
 					{
 						auxEstadia = estadias[i];
 						estadias[i] = estadias[i + 1];
 						estadias[i + 1] = auxEstadia;
 						flagSwap = 1;
-
 					}
 				}
 			}
 			retorno = 0;
-
 		}
-
 	}while(flagSwap);
 
+	return retorno;
+}
+int nexo_modificarUnaEstadia(sEstadiaDiaria estadias[], int tam, sDuenio duenios[])
+{
+	int retorno = -1;
+	int opcionSubMenu;
+	int idIngresada;
+	int index;
+	int auxTelefono;
+	int auxPerro;
+
+	obtenerNumeroValido(&idIngresada, "Ingrese el ID de la estadia a modificar: ", "ERROR - Esa ID no existe, reingrese: ", 100000, 100005);
+	index = estadia_buscarPorId(estadias, tam, idIngresada);
+
+	do
+	{
+		pedirEntero(&opcionSubMenu, "\n----------MODIFICAR----------\n"
+										"1. Modificar telefono\n"
+										"2. Modificar id del Perro\n"
+										"3. Salir.\n"
+										"---------------------------\n"
+										"Ingrese la opcion deseada: ",
+										"\n----------MODIFICAR----------\n"
+										"1. Modificar telefono\n"
+										"2. Modificar id del Perro\n"
+										"3. Salir.\n"
+										"---------------------------\n"
+										"ERROR - reingrese la opcion deseada: ", 1, 3);
+			switch(opcionSubMenu)
+			{
+				case 1 :
+					if(index != -1)
+					{
+						obtenerNumeroValido(&auxTelefono, "Ingrese el nuevo numero del cliente: ", "ERROR - Ese no es un numero valido, reingrese: ",10000000 , 999999999);
+						if(estadia_verificarConfirmacion("Ingrese 'S' para confirmar: ") == 0)
+						{
+							duenios[index].telefono = auxTelefono;
+							printf("Numero modificado correctamente...\n");
+						}
+						else
+						{
+							printf("Se cancelo la modificacion del telefono...\n");
+						}
+					retorno = 0;
+					}
+					system("pause");
+				break;
+				case 2 :
+					if(index != -1)
+					{
+						obtenerNumeroValido(&auxPerro, "Ingrese el nuevo ID del perro nuevo: ", "ERROR - Ese ID de perro no existe, reingrese: ", 7000, 7002);
+						if(estadia_verificarConfirmacion("Ingrese 'S' para confirmar: ") == 0)
+						{
+							estadias[index].idPerro = auxPerro;
+							printf("ID del perro modificado correctamente...\n");
+						}
+						else
+						{
+							printf("Se cancelo la modificacion del ID del perro...\n");
+						}
+					}
+					system("pause");
+				break;
+			}
+	}while(opcionSubMenu != 3);
 
 	return retorno;
 }

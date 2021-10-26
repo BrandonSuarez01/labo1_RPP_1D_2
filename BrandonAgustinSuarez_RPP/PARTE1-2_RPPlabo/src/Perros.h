@@ -24,6 +24,7 @@ typedef struct
 	char nombre[TAMNOMBRE];
 	char raza[TAMNOMBRE];
 	int edad;
+	int estado;
 }sPerro;
 
 void perros_hardCodear(sPerro perros[], int tam);

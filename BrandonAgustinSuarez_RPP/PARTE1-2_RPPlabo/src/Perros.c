@@ -24,6 +24,7 @@ void perros_hardCodear(sPerro perros[], int tam)
 		strcpy(perros[i].nombre, nombre[i]);
 		strcpy(perros[i].raza, raza[i]);
 		perros[i].edad = edad[i];
+		perros[i].estado = OCUPADO;
 	}
 }
 void perros_listar(sPerro perros[], int tam)

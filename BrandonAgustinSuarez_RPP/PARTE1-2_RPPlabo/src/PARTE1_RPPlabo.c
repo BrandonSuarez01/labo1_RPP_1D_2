@@ -60,8 +60,20 @@ int main(void)
 				{
 					contadorEstadias++;
 				}
+				else
+				{
+					printf("ERROR");
+				}
 			break;
 			case 2 :
+				if(contadorEstadias > 0)
+				{
+					nexo_modificarUnaEstadia(estadias, TAMESTADIA, duenios);
+				}
+				else
+				{
+					printf("ERROR - Aun no se ah agregado ninguna estadia...\n");
+				}
 			break;
 			case 3 :
 				if(contadorEstadias > 0)
@@ -71,12 +83,23 @@ int main(void)
 						contadorEstadias--;
 					}
 				}
+				else
+				{
+					printf("ERROR - Aun no se ah agregado ninguna estadia...\n");
+				}
 			break;
 			case 4 :
 				if(contadorEstadias > 0)
 				{
-					//nexo_ordenarEstadias(estadias, duenios, TAMESTADIA);
-					nexo_listarVarias(estadias,duenios, perros, TAMESTADIA, TAMPERROS, TAMDUENIO);
+					printf("\nListando estadias...\n\n");
+					nexo_ordenarEstadias(estadias, duenios, TAMESTADIA);
+					system("pause");
+					nexo_listarEstadia(estadias, duenios, perros, TAMESTADIA, TAMDUENIO, TAMPERROS);
+
+				}
+				else
+				{
+					printf("ERROR - Aun no se ah agregado ninguna estadia...\n");
 				}
 			break;
 			case 5 :
