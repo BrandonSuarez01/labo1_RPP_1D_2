@@ -13,7 +13,7 @@ int duenios_hardCodear(sDuenio duenios[], int tam)
 
 	int ids[] = {30000, 30001, 30002, 30003, 30004};
 	char nombre[][TAMNOMBRE] = {"Jose", "Marcos", "Anibal", "Maria", "Marta"};
-	int telefono[]= {1560596578, 1567453478, 1509871278, 1576234578, 1545232378};
+	int telefono[]= {60596578, 67453478, 19871278, 76234578, 45232378};
 
 	if(duenios != NULL)
 	{

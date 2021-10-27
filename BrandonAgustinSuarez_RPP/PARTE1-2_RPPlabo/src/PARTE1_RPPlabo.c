@@ -11,8 +11,6 @@ Suarez Brandon: Recuperatorio parcial uno.
 #include "Duenio.h"
 #include "Nexo.h"
 
-#define TAM 5
-
 int main(void)
 {
 	setbuf(stdout, NULL);
@@ -39,7 +37,9 @@ int main(void)
 											"4. LISTAR ESTADIAS.\n"
 											"5. LISTAR PERROS.\n"
 											"6. PROMEDIO edad de los perros.\n"
-											"7. Salir.\n"
+											"7. MOSTRAR perro con mas estadias.\n"
+											"8. MOSTRAR perros con sus estadias.\n"
+											"9. Salir.\n"
 										"-----------------------------------------\n"
 											"Ingrese la opcion deseada: ",
 											"------------------Menu------------------\n"
@@ -48,10 +48,12 @@ int main(void)
 											"3. CANCELAR ESTADIA.\n"
 											"4. LISTAR ESTADIAS.\n"
 											"5. LISTAR PERROS.\n"
-											"6. PROMEDIO edad de los perros.\n "
-											"7.Salir.\n"
+											"6. PROMEDIO edad de los perros.\n"
+											"7. MOSTRAR perro con mas estadias.\n"
+											"8. MOSTRAR perros con sus estadias.\n"
+											"9.Salir.\n"
 										"-----------------------------------------\n"
-											"ERROR - Reingrese una opcion valida: ", 1, 7);
+											"ERROR - Reingrese una opcion valida: ", 1, 9);
 
 		switch(opcionMenu)
 		{
@@ -68,7 +70,7 @@ int main(void)
 			case 2 :
 				if(contadorEstadias > 0)
 				{
-					nexo_modificarUnaEstadia(estadias, TAMESTADIA, duenios);
+					nexo_modificarUnaEstadia(estadias, TAMESTADIA, duenios, perros, TAMDUENIO, TAMPERROS);
 				}
 				else
 				{
@@ -78,6 +80,7 @@ int main(void)
 			case 3 :
 				if(contadorEstadias > 0)
 				{
+					nexo_listarEstadia(estadias, duenios, perros, TAMESTADIA, TAMDUENIO, TAMPERROS);
 					if(!nexo_borrarUnaEstadia(estadias, TAMESTADIA, duenios))
 					{
 						contadorEstadias--;
@@ -110,11 +113,31 @@ int main(void)
 				perros_mostrarPromedio(promedio);
 			break;
 			case 7 :
-				printf("Finalizo la carga de empleados...");
+				if(contadorEstadias > 0)
+				{
+					nexo_perroMasEstadias(estadias, TAMESTADIA);
+				}
+				else
+				{
+					printf("ERROR - Aun no se ah agregado ninguna estadia...\n");
+				}
+			break;
+			case 8:
+				if(contadorEstadias > 0)
+				{
+					nexo_mostrarPerrosConSusEstadias(estadias, perros, duenios, TAMESTADIA, TAMPERROS, TAMDUENIO);
+				}
+				else
+				{
+					printf("ERROR - Aun no se ah agregado ninguna estadia...\n");
+				}
+			break;
+			case 9 :
+				printf("Finalizo la carga de estadias...");
 			break;
 		}
 
-	}while(opcionMenu != 7);
+	}while(opcionMenu != 9);
 
 	return EXIT_SUCCESS;
 }

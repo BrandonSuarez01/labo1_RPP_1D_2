@@ -15,7 +15,9 @@
 #include "Perros.h"
 #include "Funciones.h"
 
-int nexo_modificarUnaEstadia(sEstadiaDiaria estadias[], int tam, sDuenio duenios[]);
+int nexo_mostrarPerrosConSusEstadias(sEstadiaDiaria estadias[], sPerro perros[],sDuenio duenios[], int tamEstadias, int tamPerros, int tamDuenios);
+int nexo_perroMasEstadias(sEstadiaDiaria estadias[], int tamEstadias);
+int nexo_modificarUnaEstadia(sEstadiaDiaria estadias[], int tam, sDuenio duenios[], sPerro perros[], int tamDuenios, int tamPerros);
 int nexo_ordenarEstadias(sEstadiaDiaria estadias[], sDuenio duenios[], int tam);
 int nexo_agregarUnaEstadia(sEstadiaDiaria estadias[], sDuenio duenios[], sPerro perros[], int tamEstadias, int* id, int tamDuenios, int tamPerros);
 int nexo_establecerEstadia(sEstadiaDiaria estadias[], sDuenio duenios[], sPerro perros[], int i, int* id, int tamDuenios, int tamPerros);

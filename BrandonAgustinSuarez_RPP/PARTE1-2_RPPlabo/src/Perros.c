@@ -58,3 +58,4 @@ void perros_mostrarPromedio(float promedio)
 {
 	printf("El promedio de edad de los perros es: %.2f\n\n", promedio);
 }
+
