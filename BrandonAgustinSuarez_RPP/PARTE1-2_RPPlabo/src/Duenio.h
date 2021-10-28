@@ -27,7 +27,30 @@ typedef struct
 
 }sDuenio;
 
+/**
+ * @fn int duenios_hardCodear(sDuenio[], int)
+ * @brief hard codea todos los espacios en la estructura de 5 deuños.
+ *
+ * @param duenios pasa el array de los dueños.
+ * @param tam pasa el tamaño de el array de dueños.
+ * @return devuelve 0 si pudo hardcodear los dueños correctamente.
+ */
 int duenios_hardCodear(sDuenio duenios[], int tam);
+/**
+ * @fn void duenios_mostrarUno(sDuenio*)
+ * @brief muestra solo un dueño del array.
+ *
+ * @param duenios pasa el array de los dueños.
+ */
 void duenios_mostrarUno(sDuenio* duenios);
+/**
+ * @fn int duenios_mostrarVarios(sDuenio[], int)
+ * @brief muestra todos los dueños con el estado OCUPADO del array.
+ *
+ * @param duenios pasa el array de los dueños.
+ * @param tamDuenios pasa el tamaño de el array de dueños.
+ * @return devuelve 0 si pudo mostrar correctamente.
+ */
 int duenios_mostrarVarios(sDuenio duenios[], int tamDuenios);
+
 #endif /* DUENIO_H_ */

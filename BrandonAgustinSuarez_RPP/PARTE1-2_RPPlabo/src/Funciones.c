@@ -17,12 +17,15 @@
 int pedirEntero(int* enteroDevuelto, char* mensaje, char* mensajeError, int min, int max)
 {
 	int numeroIngresado;
+	int devolucion;
 
 	printf("%s", mensaje);
 	fflush(stdin);
 	scanf("%d", &numeroIngresado);
 
-	while(numeroIngresado < min || numeroIngresado > max)
+	devolucion = isalpha(numeroIngresado);
+
+	while(numeroIngresado < min || numeroIngresado > max || devolucion == 1 || numeroIngresado == '+')
 	{
 		printf("%s", mensajeError);
 		fflush(stdin);
@@ -38,20 +41,24 @@ void pedirString(char* string, char* primerMensaje, char* mensajeError, int max)
 	char nombreSinValidar[100];
 	int tam;
 
-	printf("%s", primerMensaje);
-	fflush(stdin);
-	scanf("%[^\n]", nombreSinValidar);
-	tam = strlen(nombreSinValidar);
-
-	while(tam > max || validarSigno(nombreSinValidar) == 0)
+	if(primerMensaje != NULL && mensajeError != NULL)
 	{
-		printf("%s", mensajeError);
+		printf("%s", primerMensaje);
 		fflush(stdin);
 		scanf("%[^\n]", nombreSinValidar);
 		tam = strlen(nombreSinValidar);
+
+		while(tam > max || validarSigno(nombreSinValidar) == 0 || nombreSinValidar == NULL)
+		{
+			printf("%s", mensajeError);
+			fflush(stdin);
+			scanf("%[^\n]", nombreSinValidar);
+			tam = strlen(nombreSinValidar);
+		}
+
+		strcpy(string, nombreSinValidar);
 	}
 
-	strcpy(string, nombreSinValidar);
 
 }
 int pedirFlotante(float* flotanteDevuelto, char* mensaje, char* mensajeError, int min, int max)
@@ -183,5 +190,17 @@ int obtenerNumeroValido(int* numero, char* mensaje, char* mensajeError, int min,
 		retorno = 0;
 	}
 	return retorno;
+}
+int systemPause(char* message)
+{
+	int ret=-1;
+	if(message!=NULL)
+	{
+		fflush(stdin);
+		printf("\n%s",message);
+		getchar();
+		ret=0;
+	}
+	return ret;
 }
 

@@ -180,27 +180,36 @@ int nexo_modificarUnaEstadia(sEstadiaDiaria estadias[], int tam, sDuenio duenios
 	obtenerNumeroValido(&idIngresada, "\nIngrese el ID de la estadia a modificar: ", "\nERROR - Esa ID no existe, reingrese: ", 100000, 100005);
 	index = estadia_buscarPorId(estadias, tam, idIngresada);
 
+	while(estadias_recorrerArray(estadias, tam, idIngresada) == -1)
+	{
+		nexo_listarEstadia(estadias, duenios, perros, tam, tamDuenios, tamPerros);
+		obtenerNumeroValido(&idIngresada, "\nERROR - No es posible encontrar esa ID, reingrese: ", "\nERROR - reingrese: ", 100000, 100005);
+		estadias_recorrerArray(estadias, tam, idIngresada);
+	}
+
+	index = estadia_buscarPorId(estadias, tam, idIngresada);
+
 	do
 	{
-		pedirEntero(&opcionSubMenu, "\n----------MODIFICAR----------\n"
-										"1. Modificar telefono\n"
-										"2. Modificar id del Perro\n"
-										"3. Salir.\n"
-										"---------------------------\n"
-										"Ingrese la opcion deseada: ",
-										"\n----------MODIFICAR----------\n"
-										"1. Modificar telefono\n"
-										"2. Modificar id del Perro\n"
-										"3. Salir.\n"
-										"---------------------------\n"
-										"ERROR - reingrese la opcion deseada: ", 1, 3);
+		obtenerNumeroValido(&opcionSubMenu, "----------MODIFICAR----------\n"
+											"1. Modificar telefono\n"
+											"2. Modificar id del Perro\n"
+											"3. Salir.\n"
+											"---------------------------\n"
+											"Ingrese la opcion deseada: ",
+											"----------MODIFICAR----------\n"
+											"1. Modificar telefono\n"
+											"2. Modificar id del Perro\n"
+											"3. Salir.\n"
+											"---------------------------\n"
+											"ERROR - reingrese la opcion deseada: ", 1, 3);
 			switch(opcionSubMenu)
 			{
 				case 1 :
 					if(index != -1)
 					{
-						obtenerNumeroValido(&auxTelefono, "Ingrese el nuevo numero del cliente: ", "ERROR - Ese no es un numero valido, reingrese: ",10000000 , 99999999);
-						printf("\nDesea modificar el siguiente numero de telefono %d ingresado en la estadia por %d?\n", duenios[index].telefono, auxTelefono);
+						obtenerNumeroValido(&auxTelefono, "\nIngrese el nuevo numero del cliente(Ocho digitos): ", "\nERROR - Ese no es un numero valido, reingrese: ",10000000 , 99999999);
+						printf("\nDesea modificar el siguiente numero de telefono %d ingresado en la estadia, por el nuevo: %d?\n", duenios[index].telefono, auxTelefono);
 						if(estadia_verificarConfirmacion("Ingrese 'S' para confirmar: ") == 0)
 						{
 							duenios[index].telefono = auxTelefono;
@@ -210,16 +219,17 @@ int nexo_modificarUnaEstadia(sEstadiaDiaria estadias[], int tam, sDuenio duenios
 						{
 							printf("Se cancelo la modificacion del telefono...\n");
 						}
-					retorno = 0;
+						systemPause("Presione una tecla para continuar...\n");
+						retorno = 0;
 					}
-					system("pause");
 				break;
 				case 2 :
 					if(index != -1)
 					{
 
-						obtenerNumeroValido(&auxPerro, "Ingrese el nuevo ID del perro nuevo: ", "ERROR - Ese ID de perro no existe, reingrese: ", 7000, 7002);
-						printf("\nDesea modificar el siguiente ID de perro %d ingresado en la estadia por %d?\n", estadias[index].idPerro, auxPerro);
+						perros_listar(perros, tamPerros);
+						obtenerNumeroValido(&auxPerro, "\nIngrese el nuevo ID del perro: ", "\nERROR - Ese ID de perro no existe, reingrese: ", 7000, 7002);
+						printf("\nDesea modificar el siguiente ID de perro %d ingresado en la estadia, por el nuevo: %d?\n", estadias[index].idPerro, auxPerro);
 						if(estadia_verificarConfirmacion("Ingrese 'S' para confirmar: ") == 0)
 						{
 							estadias[index].idPerro = auxPerro;
@@ -229,11 +239,15 @@ int nexo_modificarUnaEstadia(sEstadiaDiaria estadias[], int tam, sDuenio duenios
 						{
 							printf("Se cancelo la modificacion del ID del perro...\n");
 						}
+						systemPause("Presione una tecla para continuar...\n");
+						retorno = 0;
 					}
-					system("pause");
 				break;
 			}
 	}while(opcionSubMenu != 3);
+
+
+
 
 	return retorno;
 }
@@ -295,7 +309,7 @@ int nexo_mostrarPerrosConSusEstadias(sEstadiaDiaria estadias[], sPerro perros[],
 
 	for(i = 0; i < tamPerros; i++)
 	{
-		printf("Nombre: %s - ID : %d\n",perros[i].nombre, perros[i].id);
+		printf("\nNombre: %s - ID : %d:\n",perros[i].nombre, perros[i].id);
 		for(j = 0; j < tamEstadias; j++)
 		{
 			for(k = 0; k < tamDuenios; k++)
@@ -305,11 +319,9 @@ int nexo_mostrarPerrosConSusEstadias(sEstadiaDiaria estadias[], sPerro perros[],
 					printf("%-10d %-20s %-20d\n", estadias[j].id, duenios[k].nombre, duenios[k].telefono);
 					retorno = 0;
 				}
-
 			}
 		}
 	}
-
 	return retorno;
 }
 

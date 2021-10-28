@@ -63,4 +63,17 @@ int estadia_verificarConfirmacion(char* mensaje)
 
 return retorno;
 }
+int estadias_recorrerArray(sEstadiaDiaria estadias[], int tam, int idIngresada)
+{
+	int retorno = -1;
+
+	for(int i = 0; i < tam; i++)
+	{
+		if(estadias[i].id == idIngresada)
+		{
+			retorno = 0;
+		}
+	}
+	return retorno;
+}
 

@@ -22,4 +22,5 @@ typedef struct
 	int anio;
 
 }Fecha;
+
 #endif /* FECHA_H_ */
